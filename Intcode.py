@@ -1,4 +1,6 @@
 # before made intcode into a class
+# probably broke something
+# dab on the haters 2019
 import csv
 point = 0
 opcodes = [1, 2, 3, 4, 99]
@@ -18,19 +20,19 @@ def go():
         strpt = str(point)
         for i in len("%i" % point):
 
-        if av[point] < 100:
-            if av[point] in opcodes:
-                if av[point] == opcodes[0]:
-                    add(point)
-                elif av[point] == opcodes[1]:
-                    mult(point)
-                elif av[point] == opcodes[2]:
-                    store[point]
-                elif av[point] == opcodes[3]:
-                    pull[point]
-                elif av[point] == opcodes[4]:
-                    print("point:")
-                    print(point)
+            if av[point] < 100:
+                if av[point] in opcodes:
+                    if av[point] == opcodes[0]:
+                        add(point)
+                    elif av[point] == opcodes[1]:
+                        mult(point)
+                    elif av[point] == opcodes[2]:
+                        store[point]
+                    elif av[point] == opcodes[3]:
+                        pull[point]
+                    elif av[point] == opcodes[4]:
+                        print("point:")
+                        print(point)
 
 
 def get_digit(number, n):
