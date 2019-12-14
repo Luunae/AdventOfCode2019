@@ -19,4 +19,4 @@ for i in range(0, len(uom)):
         orbits += 1
         left = llist[rlist.index(left)]
 
-print(orbits)
+print("total orbits: ", orbits + len(uom))
