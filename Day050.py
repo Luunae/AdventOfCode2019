@@ -1,2 +1,2 @@
 import IntClass
-a = IntClass.Intcore("Input050.txt")
+a = IntClass.Intcore("input_05.txt")
