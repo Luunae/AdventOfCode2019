@@ -31,13 +31,19 @@ class Intcore:
         self.modelist = [self.mode_a, self.mode_b, self.mode_c]
         self.zeromodes()
         self.output = []
-        self.inputsused = 0
+        self.outputsused = 0
         self.stop = False
         self.load(self.file)
+        self.needsinput = False
+        self.inputs = None
 
     def go(self, inputs=None):
+        self.stop = False
         self.inputs = inputs
+        self.needsinput = False
         while (self.av[self.point] % 100) != 99:
+            if self.needsinput:
+                return
             self.getmode()
             opcode = self.av[self.point] % 100
             if opcode in self.opcodes:
@@ -132,24 +138,19 @@ class Intcore:
     def store(self, point, modelist):
         storage = self.av[point + 1]
         if self.inputs:
-            self.av[storage] = self.inputs[self.inputsused]
-            self.inputsused += 1
+            self.av[storage] = self.inputs.pop(0)
             self.point += 2
             return
-        if modelist[0] == Mode.POSITION:
-            self.av[storage] = int(input("input:"))
-        else:
-            raise Exception("Error, store value in wrong mode")
-        self.point += 2
+
+        self.needsinput = True
+        return
 
     def pull(self, point, modelist):
         if modelist[0] == Mode.POSITION:
             output = self.av[self.av[point + 1]]
         else:
             output = self.av[point + 1]
-        # print("\t\tOUT\t", output)
-        self.inputsused = 0
-        self.output = output
+        self.output.append(output)
         self.point += 2
 
     def jumpiftrue(self, point, modelist, to_true):
