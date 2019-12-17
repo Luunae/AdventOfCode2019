@@ -19,7 +19,7 @@ class Opcode(IntEnum):
 
 
 class Intcore:
-    def __init__(self, file, inputs=None):
+    def __init__(self, file):
         self.file = file
         self.i = 0
         self.opcodes = [1, 2, 3, 4, 5, 6, 7, 8, 99]
@@ -31,13 +31,12 @@ class Intcore:
         self.modelist = [self.mode_a, self.mode_b, self.mode_c]
         self.zeromodes()
         self.output = []
-        self.inputs = inputs
         self.inputsused = 0
-
-        self.go()
-
-    def go(self):
+        self.stop = False
         self.load(self.file)
+
+    def go(self, inputs=None):
+        self.inputs = inputs
         while (self.av[self.point] % 100) != 99:
             self.getmode()
             opcode = self.av[self.point] % 100
@@ -70,6 +69,7 @@ class Intcore:
                 print(self.av[self.point])
                 break
             self.i += 1
+        self.stop = True
 
     def load(self, a):
         with open(a, 'r') as csvfile:
@@ -147,8 +147,9 @@ class Intcore:
             output = self.av[self.av[point + 1]]
         else:
             output = self.av[point + 1]
-        print("\t\tOUT\t", output)
-        self.output.append(output)
+        # print("\t\tOUT\t", output)
+        self.inputsused = 0
+        self.output = output
         self.point += 2
 
     def jumpiftrue(self, point, modelist, to_true):
