@@ -1,5 +1,3 @@
-from typing import List
-
 file = "input_08.txt"
 width = 25  # x
 height = 6  # y
@@ -11,8 +9,7 @@ zeroes = 0
 ones = 0
 twos = 0
 
-f = open(file, "r")
-if f.mode == "r":
+with open(file, "r") as f:
     raw = f.read()
 img = str(raw)
 
