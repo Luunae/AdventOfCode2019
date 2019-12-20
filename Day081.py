@@ -58,4 +58,3 @@ for y in range(0, height):
 
 for y in range(0, height):
     print(final[y])
-print(final)
