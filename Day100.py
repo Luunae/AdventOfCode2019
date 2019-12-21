@@ -11,7 +11,6 @@ def load(file):
                     locs.append([x, y, 0])
                 x += 1
             y += 1
-
     return locs
 
 
@@ -22,7 +21,6 @@ def pathcheck(posa, posb, locs):
     miny = min(posay, posby)
     maxx = max(posax, posbx)
     maxy = max(posay, posby)
-
     ydist = posay - posby
     xdist = posax - posbx
 
@@ -51,7 +49,6 @@ def pathcheck(posa, posb, locs):
         else:
             if posay == y:
                 return False
-
     return True
 
 
